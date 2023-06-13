@@ -70,15 +70,12 @@ var menuLinks = [
 
 
 
-// Select and cache all of the <a> elements inside of topMenuEl in a variable named topMenuLinks.
 const topMenuLinks = Array.from(topMenuEl.querySelectorAll('a'));
 
-// Declare a global showingSubMenu variable and initialize it to false.
 let showingSubMenu = false;
 
 // Attach a delegated 'click' event listener to topMenuEl.
 topMenuEl.addEventListener('click', function(event) {
-  // Call the event object's preventDefault() method.
   event.preventDefault();
 
   // Immediately return if the element clicked was not an <a> element.
@@ -98,15 +95,12 @@ topMenuEl.addEventListener('click', function(event) {
     return;
   }
 
-  // Remove a class name of active from each <a> element in topMenuLinks.
   topMenuLinks.forEach(function(link) {
     link.classList.remove('active');
   });
 
-  // Add a class name of active to the <a> element that was clicked.
   event.target.classList.add('active');
 
-  // Check if the clicked <a> element's "link" object within menuLinks has a subLinks property.
   const linkObject = menuLinks.find(function(link) {
     return link.text === event.target.textContent;
   });
@@ -116,33 +110,25 @@ topMenuEl.addEventListener('click', function(event) {
     showingSubMenu = true;
     // Call the buildSubMenu function passing the subLinks array for the clicked <a> element.
     buildSubMenu(linkObject.subLinks);
-    // Set the CSS top property of subMenuEl to 100%.
     subMenuEl.style.top = '100%';
   } else {
-    // Set showingSubMenu to false if the "link" object does not have a subLinks property.
     showingSubMenu = false;
-    // Set the CSS top property of subMenuEl to 0.
     subMenuEl.style.top = '0';
   }
 
-  // Prevent the default action of the click event.
   event.preventDefault();
 });
 
-// Build the submenu based on the subLinks array
+
 function buildSubMenu(subLinks) {
   // Clear the contents of subMenuEl.
   subMenuEl.innerHTML = '';
 
   // Iterate over the subLinks array passed as an argument.
   subLinks.forEach(function(link) {
-    // Create an <a> element.
     const subLink = document.createElement('a');
-    // Add an href attribute with its value set to the href property of the "link" object.
     subLink.setAttribute('href', link.href);
-    // Set the new element's content to the value of the text property of the "link" object.
     subLink.textContent = link.text;
-    // Append the new element to the subMenuEl element.
     subMenuEl.appendChild(subLink);
   });
 }
@@ -153,20 +139,14 @@ function buildSubMenu(subLinks) {
 
 // Attach a delegated 'click' event listener to subMenuEl.
 subMenuEl.addEventListener('click', function(event) {
-  // Call the event object's preventDefault() method.
   event.preventDefault();
 
-  // Immediately return if the element clicked was not an <a> element.
   if (!event.target.matches('a')) {
     return;
   }
 
-  // Log the content of the <a> to verify the handler is working.
   console.log(event.target.textContent);
-
-  // Set showingSubMenu to false.
   showingSubMenu = false;
-  // Set the CSS top property of subMenuEl to 0.
   subMenuEl.style.top = '0';
 
   // Remove the class name of active from each <a> element in topMenuLinks.
@@ -182,7 +162,6 @@ subMenuEl.addEventListener('click', function(event) {
   }
 });
 
-// Update the contents of mainEl to the provided content.
 function updateMainContent(content) {
   mainEl.innerHTML = content;
 }
