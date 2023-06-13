@@ -139,27 +139,34 @@ function buildSubMenu(subLinks) {
 
 // Attach a delegated 'click' event listener to subMenuEl.
 subMenuEl.addEventListener('click', function(event) {
+  // Call the event object's preventDefault() method.
   event.preventDefault();
 
+  // Immediately return if the element clicked was not an <a> element.
   if (!event.target.matches('a')) {
     return;
   }
 
   console.log(event.target.textContent);
+
+  // Set showingSubMenu to false.
   showingSubMenu = false;
   subMenuEl.style.top = '0';
 
-  // Remove the class name of active from each <a> element in topMenuLinks.
   topMenuLinks.forEach(function(link) {
     link.classList.remove('active');
   });
 
-  // Update the contents of mainEl to the contents of the <a> element clicked within subMenuEl.
-  if (event.target.textContent.toUpperCase() === 'ABOUT') {
-    mainEl.innerHTML = '<h1>About</h1>';
-  } else {
-    mainEl.innerHTML = '<h1>' + event.target.textContent + '</h1>';
-  }
+  mainEl.innerHTML = '<h1>' + event.target.textContent + '</h1>';
+});
+
+
+
+// Add a separate event listener for the "ABOUT" link.
+var aboutLink = document.querySelector('#top-menu a[href="/about"]');
+aboutLink.addEventListener('click', function(event) {
+  event.preventDefault();
+  mainEl.innerHTML = '<h1>About</h1>';
 });
 
 function updateMainContent(content) {
