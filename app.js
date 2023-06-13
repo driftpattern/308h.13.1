@@ -155,7 +155,7 @@ subMenuEl.addEventListener('click', function(event) {
   });
 
   // Update the contents of mainEl to the contents of the <a> element clicked within subMenuEl.
-  if (event.target.textContent === 'ABOUT') {
+  if (event.target.textContent.toUpperCase() === 'ABOUT') {
     mainEl.innerHTML = '<h1>About</h1>';
   } else {
     mainEl.innerHTML = '<h1>' + event.target.textContent + '</h1>';
